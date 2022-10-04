@@ -25,7 +25,6 @@ public class ZonaControlador {
                     .body("{Revise su peticion}");
         }
     }
-
     @GetMapping
     public ResponseEntity<?> buscarTodos(){
         try{
@@ -36,6 +35,45 @@ public class ZonaControlador {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("{Busque algo que exista}");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
+        try{
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(zonaServicio.buscarPorId(id));
+        }catch(Exception error){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("{Busque algo que exista}");
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@PathVariable Integer id, @RequestBody Zona zona){
+        try{
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(zonaServicio.actualizar(id, zona));
+        }catch(Exception error){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("{No se pudo actualizar}");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Integer id){
+        try{
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(zonaServicio.borrar(id));
+        }catch(Exception error){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("{No se pudo borrar}");
         }
     }
 }
