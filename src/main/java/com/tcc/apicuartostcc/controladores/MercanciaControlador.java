@@ -20,9 +20,10 @@ public class MercanciaControlador {
                     .status(HttpStatus.OK)
                     .body(mercanciaServicio.registrar(mercancia));
         }catch(Exception error){
+            String mensaje = "{\"error\":\"Error revise: "+error+"\"}";
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body("{Revise su peticion+"+error+"}");
+                    .body(mensaje);
         }
     }
 
